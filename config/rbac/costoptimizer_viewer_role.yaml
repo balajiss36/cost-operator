@@ -1,0 +1,23 @@
+# permissions for end users to view costoptimizers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: cost-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: costoptimizer-viewer-role
+rules:
+- apiGroups:
+  - optimizer.dev.builder
+  resources:
+  - costoptimizers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - optimizer.dev.builder
+  resources:
+  - costoptimizers/status
+  verbs:
+  - get
