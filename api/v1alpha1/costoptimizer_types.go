@@ -29,13 +29,16 @@ type CostOptimizerSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of CostOptimizer. Edit costoptimizer_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Name   string `json:"name,omitempty"`
+	Object string `json:"object,omitempty"`
+	Foo    string `json:"foo,omitempty"`
 }
 
 // CostOptimizerStatus defines the observed state of CostOptimizer
 type CostOptimizerStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Status string `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

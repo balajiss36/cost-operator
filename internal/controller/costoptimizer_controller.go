@@ -18,13 +18,17 @@ package controller
 
 import (
 	"context"
+	"time"
 
+	"github.com/go-logr/logr"
+	"github.com/prometheus/client_golang/api"
+	v1 "github.com/prometheus/client_golang/api/prometheus/v1"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/log"
-	"sigs.k8s.io/controller-runtime/pkg/source"
+	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
 	optimizerv1alpha1 "github.com/balajiss36/cost-operator/api/v1alpha1"
 )
@@ -49,33 +53,80 @@ type CostOptimizerReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.19.0/pkg/reconcile
 func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	log := ctrl.LoggerFrom(ctx)
 
 	// TODO(user): your logic here
 	// This is to watch your resource and perform some action if it is not in the desired state
+
+	log.Info("triggered the Reconcile loop")
+
 	var optimizer optimizerv1alpha1.CostOptimizer
 	err := r.Client.Get(ctx, req.NamespacedName, &optimizer)
 	if err != nil {
-		log.Log.Error(err, "unable to fetch CostOptimizer")
+		log.Error(err, "unable to fetch CostOptimizer")
 		return ctrl.Result{}, err
 	}
 
 	var list optimizerv1alpha1.CostOptimizerList
 	err = r.Client.List(ctx, &list)
 	if err != nil {
-		log.Log.Error(err, "unable to list CostOptimizer")
+		log.Error(err, "unable to list CostOptimizer")
 		return ctrl.Result{}, err
 	}
+	r.GetPodData()
+
 	return ctrl.Result{}, nil
+}
+
+func (r *CostOptimizerReconciler) GetPodData() []reconcile.Request {
+	prometheusClient, err := api.NewClient(api.Config{
+		Address: "http://prometheus-server.default.svc:9090",
+	})
+
+	v1api := v1.NewAPI(prometheusClient)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	if err != nil {
+		log.Log.Error(err, "Failed to create Prometheus client")
+		return []ctrl.Request{}
+	}
+
+	// gvk, err := r.GroupVersionKindFor(we)
+	// if err != nil {
+	// 	log.Log.Error(err, "Failed to get GVK for resource")
+	// 	return []ctrl.Request{}
+	// }
+	// log.Log.Info("GVK by Pod %v", gvk)
+
+	query := `avg(rate(container_cpu_usage_seconds_total{namespace="default"}[5m])) by (pod)`
+	result, warnings, err := v1api.Query(ctx, query, time.Now())
+	if err != nil {
+		log.Log.Error(err, "Failed to query Prometheus")
+		return []ctrl.Request{}
+	}
+
+	if len(warnings) > 0 {
+		log.Log.Info("Warnings: %v", warnings)
+	}
+	log.Log.Info("Result from Prometheus queries by Pod %v", result.String())
+	return nil
 }
 
 // SetupWithManager sets up the controller with the Manager.
 func (r *CostOptimizerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&optimizerv1alpha1.CostOptimizer{}).
-		Watches(&source.Kind{Type: &corev1.Pod{}}, &handler.EnqueueRequestsFromMapFunc().
-			Complete(r))
-	// If you want to perform some action on the other related resources, you can add them here
+		Owns(&corev1.Pod{}).
+		WithLogConstructor(func(request *reconcile.Request) logr.Logger {
+			return mgr.GetLogger()
+		}).
+		// Watches(source.Kind("cache", &Type{&corev1.Pod{}}, handler.EnqueueRequestForOwner())).
+		// Watches(
+		// 	&source.Kind{Type: &corev1.Pod{}},
+		// 	handler.EnqueueRequestsFromMapFunc(),
+		// 	builder.WithPredicates(predicate.ResourceVersionChangedPredicate{}),
+		// ).
+		Complete(r)
 }
 
 // // For every pods, CostOptimizer would run
