@@ -8,9 +8,15 @@ metadata:
   name: leader-election-role
 rules:
 - apiGroups:
-  - ""
+  - optimizer.dev.builder
+  - "*"
   resources:
   - configmaps
+  - pods
+  - namespaces
+  - deployments
+  - secrets
+  - services  
   verbs:
   - get
   - list

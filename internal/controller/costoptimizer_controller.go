@@ -18,12 +18,12 @@ package controller
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/go-logr/logr"
 	"github.com/prometheus/client_golang/api"
 	v1 "github.com/prometheus/client_golang/api/prometheus/v1"
-	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -39,6 +39,8 @@ type CostOptimizerReconciler struct {
 	Scheme *runtime.Scheme
 }
 
+var setupLog = ctrl.Log.WithName("setup")
+
 // +kubebuilder:rbac:groups=optimizer.dev.builder,resources=costoptimizers,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=optimizer.dev.builder,resources=costoptimizers/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=optimizer.dev.builder,resources=costoptimizers/finalizers,verbs=update
@@ -53,79 +55,56 @@ type CostOptimizerReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.19.0/pkg/reconcile
 func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	log := ctrl.LoggerFrom(ctx)
-
-	// TODO(user): your logic here
-	// This is to watch your resource and perform some action if it is not in the desired state
-
-	log.Info("triggered the Reconcile loop")
+	logger := log.FromContext(ctx)
+	logger.Info("Reconciling CostOptimizer", "name", req.NamespacedName)
 
 	var optimizer optimizerv1alpha1.CostOptimizer
-	err := r.Client.Get(ctx, req.NamespacedName, &optimizer)
-	if err != nil {
-		log.Error(err, "unable to fetch CostOptimizer")
-		return ctrl.Result{}, err
+	if err := r.Client.Get(ctx, req.NamespacedName, &optimizer); err != nil {
+		logger.Error(err, "unable to fetch CostOptimizer")
+		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
 
-	var list optimizerv1alpha1.CostOptimizerList
-	err = r.Client.List(ctx, &list)
-	if err != nil {
-		log.Error(err, "unable to list CostOptimizer")
+	if err := r.GetPodData(ctx); err != nil {
+		logger.Error(err, "failed to get pod data")
 		return ctrl.Result{}, err
 	}
-	r.GetPodData()
 
 	return ctrl.Result{}, nil
 }
 
-func (r *CostOptimizerReconciler) GetPodData() []reconcile.Request {
+func (r *CostOptimizerReconciler) GetPodData(ctx context.Context) error {
 	prometheusClient, err := api.NewClient(api.Config{
 		Address: "http://prometheus-server.default.svc:9090",
 	})
-
-	v1api := v1.NewAPI(prometheusClient)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
 	if err != nil {
-		log.Log.Error(err, "Failed to create Prometheus client")
-		return []ctrl.Request{}
+		return fmt.Errorf("failed to create Prometheus client: %w", err)
 	}
 
-	// gvk, err := r.GroupVersionKindFor(we)
-	// if err != nil {
-	// 	log.Log.Error(err, "Failed to get GVK for resource")
-	// 	return []ctrl.Request{}
-	// }
-	// log.Log.Info("GVK by Pod %v", gvk)
-
+	v1api := v1.NewAPI(prometheusClient)
 	query := `avg(rate(container_cpu_usage_seconds_total{namespace="default"}[5m])) by (pod)`
 	result, warnings, err := v1api.Query(ctx, query, time.Now())
 	if err != nil {
-		log.Log.Error(err, "Failed to query Prometheus")
-		return []ctrl.Request{}
+		return fmt.Errorf("failed to query Prometheus: %w", err)
 	}
 
 	if len(warnings) > 0 {
-		log.Log.Info("Warnings: %v", warnings)
+		log.FromContext(ctx).Info("Prometheus query warnings", "warnings", warnings)
 	}
-	log.Log.Info("Result from Prometheus queries by Pod %v", result.String())
+
+	log.FromContext(ctx).Info("Result from Prometheus queries by Pod", "result", result.String())
 	return nil
 }
 
 // SetupWithManager sets up the controller with the Manager.
 func (r *CostOptimizerReconciler) SetupWithManager(mgr ctrl.Manager) error {
+	setupLog.Info("Reconciling CostOptimizer", "name", "SetupWithManager")
+
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&optimizerv1alpha1.CostOptimizer{}).
-		Owns(&corev1.Pod{}).
+		// Owns(&corev1.Pod{}).
 		WithLogConstructor(func(request *reconcile.Request) logr.Logger {
 			return mgr.GetLogger()
 		}).
-		// Watches(source.Kind("cache", &Type{&corev1.Pod{}}, handler.EnqueueRequestForOwner())).
-		// Watches(
-		// 	&source.Kind{Type: &corev1.Pod{}},
-		// 	handler.EnqueueRequestsFromMapFunc(),
-		// 	builder.WithPredicates(predicate.ResourceVersionChangedPredicate{}),
-		// ).
 		Complete(r)
 }
 
