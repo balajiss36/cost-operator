@@ -39,18 +39,23 @@ spec:
           spec:
             description: CostOptimizerSpec defines the desired state of CostOptimizer
             properties:
-              foo:
-                type: string
               name:
                 description: Foo is an example field of CostOptimizer. Edit costoptimizer_types.go
                   to remove/update
                 type: string
               object:
                 type: string
+              schedule:
+                type: string
             type: object
           status:
             description: CostOptimizerStatus defines the observed state of CostOptimizer
             properties:
+              active:
+                type: string
+              lastScheduleTime:
+                format: date-time
+                type: string
               status:
                 description: |-
                   INSERT ADDITIONAL STATUS FIELD - define observed state of cluster

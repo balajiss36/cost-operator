@@ -7,3 +7,6 @@ metadata:
   name: costoptimizer-sample
 spec:
   # TODO(user): Add fields here
+  name: "costoptimizer-sample"
+  object: "job"
+  schedule: "*/1 * * * *"

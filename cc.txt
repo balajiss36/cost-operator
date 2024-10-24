@@ -1,0 +1,289 @@
+2024-10-19T08:49:14+05:30	INFO	setup	starting manager
+2024-10-19T08:49:14+05:30	INFO	starting server	{"name": "health probe", "addr": "[::]:8081"}
+2024-10-19T08:49:14+05:30	INFO	Starting EventSource	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "source": "kind source: *v1alpha1.CostOptimizer"}
+2024-10-19T08:49:14+05:30	INFO	Starting EventSource	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "source": "kind source: *v1.Pod"}
+2024-10-19T08:49:14+05:30	INFO	Starting Controller	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer"}
+2024-10-19T08:49:14+05:30	INFO	Starting workers	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "worker count": 1}
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:14+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "afdfb8a2-9ace-4231-b9dc-32da7e3ed5f8", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:14+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "afdfb8a2-9ace-4231-b9dc-32da7e3ed5f8", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:14+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "ece4e317-7aff-48b2-9bff-54ebd86008e2", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:14+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "ece4e317-7aff-48b2-9bff-54ebd86008e2", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:14+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:14+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "0c73c747-6044-4e6c-89ab-739567268b7b", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:14+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "0c73c747-6044-4e6c-89ab-739567268b7b", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:15+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "c6afb1ae-41be-40e4-bf04-4468b0c5456f", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "c6afb1ae-41be-40e4-bf04-4468b0c5456f", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:15+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "a15721d8-9d88-4a00-a495-9bfeb403cd87", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "a15721d8-9d88-4a00-a495-9bfeb403cd87", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:15+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "dba2d59c-7594-4ba6-87c5-74cd46cf94e3", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "dba2d59c-7594-4ba6-87c5-74cd46cf94e3", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:15+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "a5d4c28d-7875-47a1-90ae-3fae824af598", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "a5d4c28d-7875-47a1-90ae-3fae824af598", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:15+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:15+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "97aee6da-0925-4122-8a16-215f899b308e", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:15+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "97aee6da-0925-4122-8a16-215f899b308e", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:16+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:16+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:16+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:16+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "a760d777-8814-41d5-b455-0a6d28408031", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:16+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "a760d777-8814-41d5-b455-0a6d28408031", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:17+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:17+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:17+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:17+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "d0dd3216-b0be-4a92-a6ea-bab8d7502783", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:17+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "d0dd3216-b0be-4a92-a6ea-bab8d7502783", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:20+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:20+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:20+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:20+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "ff027959-babf-4681-99ca-b47b1abba31a", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:20+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "ff027959-babf-4681-99ca-b47b1abba31a", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:25+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:25+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:25+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:25+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "d847851d-9d81-419f-8411-838224ecbd1d", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:25+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "d847851d-9d81-419f-8411-838224ecbd1d", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:35+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "SetupWithManager"}
+2024-10-19T08:49:35+05:30	INFO	setup	Reconciling CostOptimizer	{"name": {"name":"costoptimizer-sample","namespace":"default"}}
+2024-10-19T08:49:35+05:30	INFO	setup	Reconciling CostOptimizer	{"name": "costoptimizer-sample"}
+2024-10-19T08:49:35+05:30	ERROR	failed to get pod data	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "845ad645-8a97-4c10-b9ac-3d839ae1b0e7", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+github.com/balajiss36/cost-operator/internal/controller.(*CostOptimizerReconciler).Reconcile
+	/Users/balajishettigar/Desktop/PV-CCM/cost-operator/internal/controller/costoptimizer_controller.go:82
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Reconcile
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:116
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:303
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:35+05:30	ERROR	Reconciler error	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer", "CostOptimizer": {"name":"costoptimizer-sample","namespace":"default"}, "namespace": "default", "name": "costoptimizer-sample", "reconcileID": "845ad645-8a97-4c10-b9ac-3d839ae1b0e7", "error": "failed to query Prometheus: Post \"http://prometheus-kube-prometheus-prometheus:9090/api/v1/query\": dial tcp: lookup prometheus-kube-prometheus-prometheus: no such host"}
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).reconcileHandler
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:316
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).processNextWorkItem
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:263
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller[...]).Start.func2.2
+	/Users/balajishettigar/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.19.0/pkg/internal/controller/controller.go:224
+2024-10-19T08:49:39+05:30	INFO	Stopping and waiting for non leader election runnables
+2024-10-19T08:49:39+05:30	INFO	Stopping and waiting for leader election runnables
+2024-10-19T08:49:39+05:30	INFO	Shutdown signal received, waiting for all workers to finish	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer"}
+2024-10-19T08:49:39+05:30	INFO	All workers finished	{"controller": "costoptimizer", "controllerGroup": "optimizer.dev.builder", "controllerKind": "CostOptimizer"}
+2024-10-19T08:49:39+05:30	INFO	Stopping and waiting for caches
+2024-10-19T08:49:39+05:30	INFO	Stopping and waiting for webhooks
+2024-10-19T08:49:39+05:30	INFO	Stopping and waiting for HTTP servers
+2024-10-19T08:49:39+05:30	INFO	shutting down server	{"name": "health probe", "addr": "[::]:8081"}
+2024-10-19T08:49:39+05:30	INFO	Wait completed, proceeding to shutdown the manager
+make: *** [run] Error 1
