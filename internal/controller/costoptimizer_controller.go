@@ -26,6 +26,7 @@ import (
 	optimizerutils "github.com/balajiss36/cost-operator/pkg/utils"
 	"github.com/robfig/cron"
 	kbatch "k8s.io/api/batch/v1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
@@ -60,6 +61,7 @@ var (
 // +kubebuilder:rbac:groups=optimizer.dev.builder,resources=costoptimizers/finalizers,verbs=update
 // +kubebuilder:rbac:groups=batch,resources=jobs,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=batch,resources=jobs/status,verbs=get
+// +kubebuilder:rbac:groups="",resources=pods,verbs=get
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -129,7 +131,6 @@ func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 	setupLog.Info("Reconciling CostOptimizer", "current Run", currentTime)
 	if nextRun.After(*scheduledTimeForJob) {
 		setupLog.Info("Reconciling CostOptimizer", "next Run", "GetPodData")
-
 		err := optimizerutils.GetPodData(ctx, namespacedName)
 		if err != nil {
 			setupLog.Error(err, "failed to get pod data")
@@ -141,6 +142,7 @@ func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 		optimizer.CreationTimestamp.Time = currentTime
 		optimizer.Status.Active = "Running"
 		optimizer.Annotations[scheduledTimeAnnotation] = currentTime.Format(time.RFC3339)
+		setupLog.Info("Reconciling CostOptimizer", "scheduletime for Run", optimizer.Annotations[scheduledTimeAnnotation])
 	}
 	setupLog.Info("Reconciling CostOptimizer", "name", "Action job created")
 	setupLog.Info("Reconciling CostOptimizer", "next Schedule Run", scheduledResult)
@@ -167,6 +169,7 @@ func (r *CostOptimizerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	}
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&optimizerv1alpha1.CostOptimizer{}).
+		Owns(&corev1.Pod{}).
 		WithEventFilter(createPredicate).
 		// Watches(&corev1.Pod{}, &handler.Funcs{CreateFunc: r.GetAll}).
 		WithOptions(controller.Options{
