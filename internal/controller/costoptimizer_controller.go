@@ -25,7 +25,6 @@ import (
 	optimizerv1alpha1 "github.com/balajiss36/cost-operator/api/v1alpha1"
 	optimizerutils "github.com/balajiss36/cost-operator/pkg/utils"
 	"github.com/robfig/cron"
-	kbatch "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -47,11 +46,7 @@ func (r *CostOptimizerReconciler) Now() time.Time { return time.Now() }
 
 var (
 	setupLog                = ctrl.Log.WithName("setup")
-	jobOwnerKey             = ".metadata.controller"
 	scheduledTimeAnnotation = "batch.tutorial.kubebuilder.io/scheduled-at"
-	activeJobs              []*kbatch.Job
-	successfulJobs          []*kbatch.Job
-	failedJobs              []*kbatch.Job
 	mostRecentTime          *time.Time
 )
 
@@ -178,53 +173,8 @@ func (r *CostOptimizerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Complete(r)
 }
 
-// // For every pods, CostOptimizer would run
-// func (r *CostOptimizerReconciler) GetAll(obj handler.MapObject) []ctrl.Request {
-// }
-
-// func (r *CostOptimizerReconciler) GetAll(context.Context, event.TypedCreateEvent[client.Object], workqueue.TypedRateLimitingInterface[reconcile.Request]) {
-// 	// Implement logic to handle Pod events and return reconciliation requests
-// 	// For example, you can return a list of requests to reconcile all CostOptimizers
-// 	var requests []reconcile.Request
-// 	var list optimizerv1alpha1.CostOptimizerList
-// 	ctx := context.Background()
-
-// 	if err := r.Client.List(ctx, &list); err != nil {
-// 		log.Log.Error(err, "unable to list CostOptimizers")
-// 		return
-// 	}
-
-// 	for _, item := range list.Items {
-// 		requests = append(requests, reconcile.Request{
-// 			NamespacedName: types.NamespacedName{
-// 				Name:      item.Name,
-// 				Namespace: item.Namespace,
-// 			},
-// 		})
-// 	}
-
-// 	return
-// }
-
 var client1 = http.Client{
 	Timeout: 2 * time.Second,
-}
-
-func Ping(domain string) (int, error) {
-	url := "http://" + domain
-	req, err := http.NewRequest("HEAD", url, nil)
-	if err != nil {
-		return 0, err
-	}
-	resp, err := client1.Do(req)
-	if err != nil {
-		return 0, err
-	}
-	err = resp.Body.Close()
-	if err != nil {
-		return 0, err
-	}
-	return resp.StatusCode, nil
 }
 
 func getScheduledTimeForJob(job *optimizerv1alpha1.CostOptimizer) (*time.Time, error) {
