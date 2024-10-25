@@ -19,7 +19,6 @@ package controller
 import (
 	"context"
 	"fmt"
-	"net/http"
 	"time"
 
 	optimizerv1alpha1 "github.com/balajiss36/cost-operator/api/v1alpha1"
@@ -46,7 +45,7 @@ func (r *CostOptimizerReconciler) Now() time.Time { return time.Now() }
 
 var (
 	setupLog                = ctrl.Log.WithName("setup")
-	scheduledTimeAnnotation = "batch.tutorial.kubebuilder.io/scheduled-at"
+	scheduledTimeAnnotation = "batch.optimizer.dev.builder.io/scheduled-at"
 	mostRecentTime          *time.Time
 )
 
@@ -80,7 +79,6 @@ func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 	// Get the Optimizer Object
 	setupLog.Info("Reconciling CostOptimizer", "name", namespacedName)
 	if err := r.Client.Get(ctx, req.NamespacedName, &optimizer); err != nil {
-		setupLog.Error(err, "unable to fetch CostOptimizer")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
 
@@ -91,54 +89,50 @@ func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 	scheduledTimeForJob, err := getScheduledTimeForJob(&optimizer)
 	if err != nil {
 		setupLog.Error(err, "unable to parse schedule time for job", "job", &optimizer)
-		// continue
 	}
 	if scheduledTimeForJob != nil {
 		if mostRecentTime == nil || mostRecentTime.Before(*scheduledTimeForJob) {
 			mostRecentTime = scheduledTimeForJob
 		}
 	}
-	// }
 
 	if mostRecentTime != nil {
 		optimizer.Status.LastScheduleTime = &metav1.Time{Time: *mostRecentTime}
 	} else {
 		optimizer.Status.LastScheduleTime = nil
 	}
+	setupLog.Info("Reconciling CostOptimizer", "scheduletime for Run", scheduledTimeForJob)
 
 	missedRun, nextRun, err := getNextSchedule(&optimizer, r.Now())
 	if err != nil {
-		setupLog.Error(err, "unable to figure out CronJob schedule")
+		setupLog.Error(err, "unable to figure out schedule")
 		return ctrl.Result{}, nil
 	}
 	setupLog.Info("Reconciling CostOptimizer", "next Run", nextRun)
-
-	setupLog.Info("Reconciling CostOptimizer", "scheduletime for Run", scheduledTimeForJob)
 
 	scheduledResult := ctrl.Result{RequeueAfter: nextRun.Sub(r.Now())}
 
 	if missedRun.IsZero() {
 		setupLog.Info("no upcoming scheduled times, sleeping until next")
-		return ctrl.Result{}, nil
+		return scheduledResult, nil
 	}
 
 	currentTime := time.Now()
 	setupLog.Info("Reconciling CostOptimizer", "current Run", currentTime)
-	if nextRun.After(*scheduledTimeForJob) {
-		setupLog.Info("Reconciling CostOptimizer", "next Run", "GetPodData")
-		err := optimizerutils.GetPodData(ctx, namespacedName)
-		if err != nil {
-			setupLog.Error(err, "failed to get pod data")
-			return ctrl.Result{
-				Requeue:      true,
-				RequeueAfter: time.Second * 10,
-			}, err
-		}
-		optimizer.CreationTimestamp.Time = currentTime
-		optimizer.Status.Active = "Running"
-		optimizer.Annotations[scheduledTimeAnnotation] = currentTime.Format(time.RFC3339)
-		setupLog.Info("Reconciling CostOptimizer", "scheduletime for Run", optimizer.Annotations[scheduledTimeAnnotation])
+	// if nextRun.After(*scheduledTimeForJob) {
+	setupLog.Info("Reconciling CostOptimizer", "next Run", "GetPodData")
+	err = optimizerutils.GetPodData(ctx, namespacedName)
+	if err != nil {
+		setupLog.Error(err, "failed to get pod data")
+		return ctrl.Result{
+			Requeue:      true,
+			RequeueAfter: time.Second * 10,
+		}, err
 	}
+	optimizer.CreationTimestamp.Time = currentTime
+	optimizer.Status.Active = "Running"
+	optimizer.Annotations[scheduledTimeAnnotation] = currentTime.Format(time.RFC3339)
+	setupLog.Info("Reconciling CostOptimizer", "scheduletime for Run", optimizer.Annotations[scheduledTimeAnnotation])
 	setupLog.Info("Reconciling CostOptimizer", "name", "Action job created")
 	setupLog.Info("Reconciling CostOptimizer", "next Schedule Run", scheduledResult)
 	return scheduledResult, nil
@@ -173,15 +167,10 @@ func (r *CostOptimizerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Complete(r)
 }
 
-var client1 = http.Client{
-	Timeout: 2 * time.Second,
-}
-
 func getScheduledTimeForJob(job *optimizerv1alpha1.CostOptimizer) (*time.Time, error) {
 	timeRaw := job.Annotations[scheduledTimeAnnotation]
 	if len(timeRaw) == 0 {
-		timeParsed, _ := time.Parse(time.RFC3339, "2024-10-24T15:32:00+05:30")
-		return &timeParsed, nil
+		return nil, nil
 	}
 
 	timeParsed, err := time.Parse(time.RFC3339, timeRaw)
@@ -197,18 +186,24 @@ func getNextSchedule(optJob *optimizerv1alpha1.CostOptimizer, now time.Time) (la
 		return time.Time{}, time.Time{}, fmt.Errorf("Unparseable schedule %q: %v", optJob.Spec.Schedule, err)
 	}
 
+	setupLog.Info("Reconciling CostOptimizer", "schedule", sched)
+
 	var earliestTime time.Time
 	if optJob.Status.LastScheduleTime != nil {
 		earliestTime = optJob.Status.LastScheduleTime.Time
+		setupLog.Info("Reconciling CostOptimizer", "earliestTime from last schedule", earliestTime)
 	} else {
 		earliestTime = optJob.ObjectMeta.CreationTimestamp.Time
 	}
+	// If the earliest time is in the future, we should wait until then.
 	if earliestTime.After(now) {
+		setupLog.Info("Reconciling CostOptimizer", "earliestTime in loop", earliestTime)
 		return time.Time{}, sched.Next(now), nil
 	}
-
 	starts := 0
+	// loop is detemine missed start time and check if it it is not overwhelmed with a lot of missed times.
 	for t := sched.Next(earliestTime); !t.After(now); t = sched.Next(t) {
+		setupLog.Info("Reconciling CostOptimizer", "newsched time inside loop", sched.Next(t))
 		lastMissed = t
 		starts++
 		if starts > 100 {
