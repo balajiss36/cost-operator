@@ -1,8 +1,8 @@
-# cost-operator
-// TODO(user): Add simple overview of use/purpose
+# Cost Operator
+A Kubernetes Operator for Monitoring and Analyzing Pod Resource Usage
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
+The Cost Operator collects Prometheus metrics from Kubernetes pods, sends the data to an external application, and generates insightful reports on resource usage and cost optimization.
 
 ## Getting Started
 
