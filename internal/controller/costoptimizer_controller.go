@@ -77,13 +77,8 @@ func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 	}
 
 	// Get the Optimizer Object
-	setupLog.Info("Reconciling CostOptimizer", "name", namespacedName)
 	if err := r.Client.Get(ctx, req.NamespacedName, &optimizer); err != nil {
 		return ctrl.Result{}, client.IgnoreNotFound(err)
-	}
-
-	if optimizer.Status.Active == "Running" {
-		setupLog.Info("Reconciling CostOptimizer", "name", "Action job already exists")
 	}
 
 	scheduledTimeForJob, err := getScheduledTimeForJob(&optimizer)
@@ -119,8 +114,6 @@ func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 
 	currentTime := time.Now()
 	setupLog.Info("Reconciling CostOptimizer", "current Run", currentTime)
-	// if nextRun.After(*scheduledTimeForJob) {
-	setupLog.Info("Reconciling CostOptimizer", "next Run", "GetPodData")
 	err = optimizerutils.GetPodData(ctx, namespacedName)
 	if err != nil {
 		setupLog.Error(err, "failed to get pod data")
@@ -130,18 +123,14 @@ func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 		}, err
 	}
 	optimizer.CreationTimestamp.Time = currentTime
-	optimizer.Status.Active = "Running"
 	optimizer.Annotations[scheduledTimeAnnotation] = currentTime.Format(time.RFC3339)
 	setupLog.Info("Reconciling CostOptimizer", "scheduletime for Run", optimizer.Annotations[scheduledTimeAnnotation])
-	setupLog.Info("Reconciling CostOptimizer", "name", "Action job created")
 	setupLog.Info("Reconciling CostOptimizer", "next Schedule Run", scheduledResult)
 	return scheduledResult, nil
 }
 
 // SetupWithManager sets up the controller with the Manager.
 func (r *CostOptimizerReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	// secretResource := &source.Kind{Type: &corev1.Secret{TypeMeta: metav1.TypeMeta{APIVersion: APIVersion, Kind: SecretKind}}}
-
 	createPredicate := predicate.Funcs{
 		CreateFunc: func(e event.CreateEvent) bool {
 			return true
@@ -160,7 +149,6 @@ func (r *CostOptimizerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		For(&optimizerv1alpha1.CostOptimizer{}).
 		Owns(&corev1.Pod{}).
 		WithEventFilter(createPredicate).
-		// Watches(&corev1.Pod{}, &handler.Funcs{CreateFunc: r.GetAll}).
 		WithOptions(controller.Options{
 			MaxConcurrentReconciles: 1,
 		}).
