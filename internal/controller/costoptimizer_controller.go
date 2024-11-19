@@ -67,7 +67,6 @@ var (
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.19.0/pkg/reconcile
 func (r *CostOptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	// logger := log.FromContext(ctx)
 	setupLog.Info("Reconciling CostOptimizer", "name", "SetupWithManager")
 
 	var optimizer optimizerv1alpha1.CostOptimizer

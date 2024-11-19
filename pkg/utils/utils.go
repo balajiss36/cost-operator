@@ -17,6 +17,7 @@ var (
 const (
 	CPUUsageAvgData = "cpu_usage_avg"
 	MemUsageAvgData = "mem_usage_avg"
+	ServiceLocal    = "svc.cluster.local"
 )
 
 func getCPUValue(rs resource.Quantity) int64 {

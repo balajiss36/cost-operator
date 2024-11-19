@@ -45,8 +45,6 @@ var promQueryMap = map[string]resource.Quantity{}
 var setupLog = ctrl.Log.WithName("setup")
 
 func GetPodData(ctx context.Context, namespacedName types.NamespacedName) error {
-	setupLog.Info("Reconciling CostOptimizer", "name", "SetupWithManager")
-
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		return fmt.Errorf("failed to create in-cluster config: %w", err)
@@ -63,8 +61,14 @@ func GetPodData(ctx context.Context, namespacedName types.NamespacedName) error 
 		return fmt.Errorf("failed to list pods: %w", err)
 	}
 
+	envConfig, err := loadConfig(".")
+	if err != nil {
+		return fmt.Errorf("Failed to load environment config: %v\n", err)
+	}
+
 	prometheusClient, err := api.NewClient(api.Config{
-		Address: "http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090",
+		// nolint:lll
+		Address: fmt.Sprintf("http://%s.%s.%s%s", envConfig.PrometheusSRV, envConfig.PrometheusNamespace, ServiceLocal, envConfig.PrometheusPort),
 	})
 	if err != nil {
 		setupLog.Error(err, "failed to create Prometheus client")
@@ -119,7 +123,7 @@ func GetPodData(ctx context.Context, namespacedName types.NamespacedName) error 
 			MemoryLimit:   podResources.MemoryLimit,
 			RequestTime:   time.Now(),
 		}
-		err = createPodRequest(request)
+		err = createPodRequest(envConfig, request)
 		if err != nil {
 			setupLog.Error(err, "failed to create pod request for pod %v namespace %v", pod.Name, pod.Namespace)
 			return err
@@ -165,20 +169,15 @@ func getResourceRequest(pod *pod.Pod) resourceList {
 	}
 }
 
-func createPodRequest(request PodRequest) error {
+func createPodRequest(config Config, request PodRequest) error {
 	jsonReq, err := json.Marshal(request)
 	if err != nil {
 		return fmt.Errorf("failed to marshal request: %w", err)
 	}
 
-	config, err := loadConfig(".")
-	if err != nil {
-		return fmt.Errorf("Failed to load config: %v\n", err)
-	}
-
 	setupLog.Info("Request to be sent to the API", "request", string(jsonReq))
 	// nolint:lll
-	uri := fmt.Sprintf("http://%s.%s.svc.cluster.local%s/api/v1/pod-insights", config.InsightsService, config.Namespace, config.HttpAddress)
+	uri := fmt.Sprintf("http://%s.%s.%s%s/api/v1/pod-insights", config.InsightsService, config.Namespace, ServiceLocal, config.HttpAddress)
 	req, err := http.NewRequest(http.MethodPost, uri, bytes.NewBuffer(jsonReq))
 	if err != nil {
 		return fmt.Errorf("failed to get New http request: %w", err)

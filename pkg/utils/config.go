@@ -3,9 +3,12 @@ package optimizerutil
 import "github.com/spf13/viper"
 
 type Config struct {
-	InsightsService string `mapstructure:"INSIGHTS_SRV"`
-	HttpAddress     string `mapstructure:"HTTP_ADDR"`
-	Namespace       string `mapstructure:"NAMESPACE"`
+	InsightsService     string `mapstructure:"INSIGHTS_SRV"`
+	HttpAddress         string `mapstructure:"HTTP_ADDR"`
+	Namespace           string `mapstructure:"NAMESPACE"`
+	PrometheusSRV       string `mapstructure:"PROMETHEUS_SRV"`
+	PrometheusPort      string `mapstructure:"PROMETHEUS_PORT"`
+	PrometheusNamespace string `mapstructure:"PROMETHEUS_NAMESPACE"`
 }
 
 func loadConfig(path string) (config Config, err error) {
